@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./Card";
+import Pokeinfo from "./Pokeinfo";
 
 const Main = () => {
     return(
@@ -14,7 +15,7 @@ const Main = () => {
                     <Card />
                 </div>
                 <div className="right-content">
-                    
+                    <Pokeinfo />
                 </div>
            </div>
         </>
