@@ -44,6 +44,7 @@ const Main = () => {
 
   return (
     <>
+      <h2 className="title">Pokemon API</h2>
       <div className="container">
         <div className="left-content">
           <Card
