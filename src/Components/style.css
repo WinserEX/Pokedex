@@ -8,6 +8,7 @@
 
 body {
     background-color: #FCEEC8;
+    min-width: 600px;
 }
 
 .container {
@@ -22,10 +23,10 @@ body {
 }
 
 .left-content {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(200px, 0.5fr));
+    display: flex;
     grid-gap: 2rem;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .right-content {
