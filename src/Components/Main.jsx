@@ -9,6 +9,19 @@ const Main = () => {
     const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/")
     const [nextUrl, setNextUrl] = useState();
     const [prevUrl, setPrevUrl] = useState();
+    const [pokeDex, setPokeDex] = useState();
+
+    const getPokemon = async(res) => {
+        res.map(async(item)=> {
+            const result = await axios.get(item.url)
+            //console.log(result.data);
+            setPokedata(state => {
+                state = [...state, result.data]
+                state.sort((a,b) => a.id > b.id ? 1 : -1)
+                return state;
+            })
+        })
+    }
 
     const pokeFun = async() => {
         setLoading(true)
@@ -19,17 +32,6 @@ const Main = () => {
         setLoading(false)
         //console.log(pokeData)
     }
-
-    const getPokemon = async(res) => {
-        res.map(async(item)=> {
-            const result = await axios.get(item.url)
-            //console.log(result.data);
-            setPokedata(state => {
-                state = [...state, result.data]
-                return state;
-            })
-        })
-    }
     
     useEffect(()=> {
         pokeFun();
@@ -39,17 +41,22 @@ const Main = () => {
         <>
            <div className="container">
                 <div className="left-content">
-                    <Card />
-                    <Card />
-                    <Card />
-                    <Card />
+                    <Card pokemon={pokeData} loading={loading} infoPokemon={poke => setPokeDex(poke)}/>
+
                     <div className="btn-group">
-                        <button>Previous</button>
-                        <button>Next</button>
+                        { prevUrl && <button onClick={()=> {
+                            setPokedata([])
+                            setUrl(prevUrl)
+                        }}>Previous</button>}
+                        { nextUrl && <button onClick={()=> {
+                            setPokedata([])
+                            setUrl(nextUrl)
+                        }
+                        }>Next</button>}
                     </div>
                 </div>
                 <div className="right-content">
-                    <Pokeinfo />
+                    <Pokeinfo data={pokeDex} />
                 </div>
            </div>
         </>
